@@ -1,0 +1,26 @@
+<div class="row">
+  <div class="col-xs-12">
+    <button class="btn btn-success" (click)="onNewPet()">Add Pet</button>
+  </div>
+</div>
+<hr>
+<div class="row">
+  <div class="col-xs-12">
+    <a *ngFor="let pet of pets"
+      [routerLink]="[pet.id]"
+       routerLinkActive="active"
+       class="list-group-item clearfix">
+      <div class="pull-left">
+        <h4 class="list-group-item-heading">{{pet.name}}</h4>
+        <p class="list-group-item-text">{{pet.breed}}</p>
+      </div>
+      <div class="pull-right">
+        <img
+          [src]="domSanitizer.bypassSecurityTrustUrl('data:image/*;base64,' + pet.photo)"
+          class="img-responsive"
+          style="max-height: 100px;"
+        >
+      </div>
+    </a>
+  </div>
+</div>
