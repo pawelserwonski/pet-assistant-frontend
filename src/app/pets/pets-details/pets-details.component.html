@@ -1,3 +1,61 @@
-<p>
-  pets-details works!
-</p>
+<div class="row" id="basicInfo">
+  <div class="col-md-6">
+    <p>{{pet.name}}</p>
+    <p>{{pet.birthDate | date:'mediumDate'}}</p>
+    <p>{{pet.breed}}</p>
+    <p>{{pet.species}}</p>
+  </div>
+  <div class="col-md-6">
+    <img
+      [src]="domSanitizer.bypassSecurityTrustUrl('data:image/*;base64,' + pet.photo)"
+      class="img-responsive"
+      style="max-height: 400px;"
+    >
+  </div>
+</div>
+<hr>
+<div class="row list-group" id="feedsList">
+  <h2>Feeds:</h2>
+  <div *ngFor="let feed of pet.feeds"
+       class="col-md-4 list-group-item">
+    <h3 class="list-group-item-heading">{{feed.time}}</h3>
+    <p class="list-group-item-text">{{feed.fodderType}}</p>
+    <p class="list-group-item-text">{{feed.portionSize}} {{feed.portionSize > 1 ? feed.portionSizeUnit + 's' : feed.portionSizeUnit}}</p>
+  </div>
+</div>
+<hr>
+<div class="row list-group" id="walksList">
+  <h2>Walks:</h2>
+  <div *ngFor="let walk of pet.walks"
+       class="col-md-4 list-group-item">
+    <h3 class="list-group-item-heading">{{walk.startTime}}</h3>
+    <p class="list-group-item-text">{{walk.walkLength}} {{walk.walkLength > 1 ? walk.walkLengthUnit + 's' : walk.walkLengthUnit}}</p>
+    <span *ngFor="let day of walk.daysOfWeek">{{day | lowercase}} </span>
+  </div>
+</div>
+<hr>
+<div class="row list-group" id="vaccinesList">
+  <h2>Vaccines:</h2>
+  <div *ngFor="let vaccine of pet.vaccines"
+       class="col-md-4 list-group-item">
+    <h3 class="list-group-item-heading">{{vaccine.sicknessType}}</h3>
+    <p class="list-group-item-text">{{vaccine.visitDate | date:'d MMMM y, H:mm'}}</p>
+    <p class="list-group-item-text">{{vaccine.location}}</p>
+  </div>
+</div>
+<hr>
+<div class="row list-group" id="vetVisitsList">
+  <h2>Vet visits:</h2>
+  <a class="col-md-6 list-group-item" style="cursor: pointer;"
+       *ngFor="let visit of pet.vetVisitsHistory"
+       (click)="_selectedVetVisit = visit">
+    <h3 class="list-group-item-heading">{{visit.visitDate | date:'d MMMM y, H:mm'}}</h3>
+    <p class="list-group-item-text">{{visit.location}}</p>
+  </a>
+  <div class="col-md-offset-7" [ngStyle]="{visibility: selectedVetVisit != null ? 'visible' : 'hidden'}">
+    <label for="visitReason">Reason:</label>
+    <p id="visitReason">{{selectedVetVisit.reason}}</p>
+    <label for="visitOpinion">Vet opinion:</label>
+    <p id="visitOpinion">{{selectedVetVisit.vetOpinion}}</p>
+  </div>
+</div>

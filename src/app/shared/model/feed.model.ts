@@ -7,4 +7,5 @@ export class Feed {
   fodderType: string;
   portionSize: number;
   portionSizeUnit: FodderUnit;
+  time: Date;
 }
