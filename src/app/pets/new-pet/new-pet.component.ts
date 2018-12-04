@@ -2,6 +2,7 @@ import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
 import {AnimalService} from '../../shared/service/animal.service';
+import {PetsListComponent} from '../pets-list/pets-list.component';
 
 @Component({
   selector: 'app-new-pet',
@@ -10,7 +11,6 @@ import {AnimalService} from '../../shared/service/animal.service';
 })
 export class NewPetComponent implements OnInit {
   petForm: FormGroup;
-  photoString: string;
   @ViewChild('fileInput') fileInput: ElementRef;
 
   constructor(private route: ActivatedRoute,

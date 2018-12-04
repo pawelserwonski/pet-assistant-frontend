@@ -1,0 +1,30 @@
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a routerLink="/" class="navbar-brand">Pet Assistant</a>
+    </div>
+
+    <div class="collapse navbar-collapse">
+      <!--TODO: make if authenticated-->
+      <ul class="nav navbar-nav">
+        <li routerLinkActive="active"><a routerLink="/pets/new">Add Pet</a></li>
+      </ul>
+
+      <ul class="nav navbar-nav navbar-right">
+        <!--TODO: if not authenticated-->
+        <ng-template [ngIf]="true">
+          <li><a routerLink="/signup">Register</a></li>
+          <li><a routerLink="/signin">Login</a></li>
+        </ng-template>
+
+        <!--TODO: if authenticated-->
+        <li *ngIf="true"><a
+          style="cursor: pointer;"
+          (click)="onLogout()">
+          Logout
+        </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>

@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {AfterViewChecked, Component, OnDestroy, OnInit} from '@angular/core';
 import {AnimalService} from '../../shared/service/animal.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {Animal} from '../../shared/model/animal.model';
@@ -27,6 +27,10 @@ export class PetsListComponent implements OnInit, OnDestroy {
   }
 
   getPets() {
+    if (this.subscription != null) {
+      this.subscription.unsubscribe();
+    }
+
     this.subscription = this.animalService.getAnimals().subscribe(
       (animals: Animal[]) => {
         this.pets = animals;
@@ -35,6 +39,6 @@ export class PetsListComponent implements OnInit, OnDestroy {
   }
 
   onNewPet() {
-
+    this.router.navigate(['new'], {relativeTo: this.route});
   }
 }

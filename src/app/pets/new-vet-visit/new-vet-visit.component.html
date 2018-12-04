@@ -1,0 +1,51 @@
+<div class="row">
+  <div class="col-xs-12">
+
+    <form [formGroup]="vetVisitForm" (ngSubmit)="onSubmit()">
+      <div class="row">
+        <div class="col-xs-12">
+          <div class="form-group">
+            <label for="visitDate">Visit Date</label>
+            <input type="datetime-local" id="visitDate" formControlName="visitDate" class="form-control">
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-xs-12">
+          <div class="form-group">
+            <label for="reason">Reason</label>
+            <input type="text" id="reason" formControlName="reason" class="form-control">
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-xs-12">
+          <div class="form-group">
+            <label for="location">Location</label>
+            <input type="text" id="location" formControlName="location" class="form-control">
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-xs-12">
+          <div class="form-group">
+            <label for="vetOpinion">Vet Opinion</label>
+            <input type="text" id="vetOpinion" formControlName="vetOpinion" class="form-control">
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-xs-12">
+          <button
+            type="submit"
+            class="btn btn-success">Save</button>
+        </div>
+      </div>
+    </form>
+
+  </div>
+</div>

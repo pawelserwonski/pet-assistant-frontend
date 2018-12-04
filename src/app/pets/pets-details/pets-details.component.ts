@@ -46,4 +46,20 @@ export class PetsDetailsComponent implements OnInit, OnDestroy {
   set selectedVetVisit(value: VetVisit) {
     this._selectedVetVisit = value;
   }
+
+  onNewFeed() {
+    this.router.navigate(['feed'], {relativeTo: this.route});
+  }
+
+  onNewWalk() {
+    this.router.navigate(['walk'], {relativeTo: this.route});
+  }
+
+  onNewVaccine() {
+    this.router.navigate(['vaccine'], {relativeTo: this.route});
+  }
+
+  onNewVetVisit() {
+    this.router.navigate(['vetvisit'], {relativeTo: this.route});
+  }
 }
