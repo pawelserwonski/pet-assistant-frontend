@@ -4,7 +4,7 @@ import {Feed} from '../model/feed.model';
 import {Observable} from 'rxjs';
 import {environment} from '../../../environments/environment';
 
-const feedControlerUrl = environment.apiEndpoint + '/feed';
+const feedControllerUrl = environment.apiEndpoint + '/feed';
 
 @Injectable()
 export class FeedService {
@@ -12,6 +12,6 @@ export class FeedService {
   }
 
   public createFeed(feed: Feed): Observable<Feed> {
-    return this.httpClient.post<Feed>(feedControlerUrl, feed);
+    return this.httpClient.post<Feed>(feedControllerUrl, feed);
   }
 }
