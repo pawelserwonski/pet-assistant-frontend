@@ -15,7 +15,4 @@ export class UserService {
     return this.httpClient.post<User>(userControllerUrl, user);
   }
 
-  public getLoggedUser(): Observable<User> {
-    return this.httpClient.get<User>(userControllerUrl);
-  }
 }

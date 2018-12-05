@@ -36,9 +36,9 @@ export class NewPetComponent implements OnInit {
   }
 
   onFileChange(event) {
-    let reader = new FileReader();
+    const reader = new FileReader();
     if (event.target.files && event.target.files.length > 0) {
-      let file = event.target.files[0];
+      const file = event.target.files[0];
       reader.readAsDataURL(file);
       console.log(reader);
       reader.onload = () => {
