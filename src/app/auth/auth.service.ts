@@ -44,9 +44,7 @@ export class AuthService {
   logout() {
     this.storage.signOut();
     localStorage.removeItem('profile');
-    if (this.sub != null) {
-      this.sub.unsubscribe();
-    }
+    this.sub.unsubscribe();
     this.router.navigate(['']);
   }
 
