@@ -1,4 +1,4 @@
-import {AfterViewChecked, Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {AnimalService} from '../../shared/service/animal.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {Animal} from '../../shared/model/animal.model';
@@ -36,10 +36,6 @@ export class PetsListComponent implements OnInit, OnDestroy {
         this.pets = animals;
       }
     );
-  }
-
-  onNewPet() {
-    this.router.navigate(['new'], {relativeTo: this.route});
   }
 
   onDeletePet(id: number) {
