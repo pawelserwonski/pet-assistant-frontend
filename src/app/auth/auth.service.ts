@@ -19,7 +19,7 @@ export interface JwtToken {
 export class AuthService {
   jwtService: JwtHelperService;
   permissionChanged: ReplaySubject<boolean>;
-  sub: Subscription;
+
 
   constructor(private storage: TokenStorage, private httpClient: HttpClient, private router: Router, private route: ActivatedRoute) {
     this.jwtService = new JwtHelperService();
@@ -44,12 +44,11 @@ export class AuthService {
   logout() {
     this.storage.signOut();
     localStorage.removeItem('profile');
-    this.sub.unsubscribe();
     this.router.navigate(['']);
   }
 
   fetchUserName() {
-    this.sub = this.getLoggedUser().subscribe(
+    this.getLoggedUser().subscribe(
       user => localStorage.setItem('user', JSON.stringify(user)),
       error => console.log(error)
     );

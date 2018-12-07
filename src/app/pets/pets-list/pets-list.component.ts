@@ -27,7 +27,7 @@ export class PetsListComponent implements OnInit, OnDestroy {
   }
 
   getPets() {
-    if (this.subscription != null) {
+    if (this.subscription) {
       this.subscription.unsubscribe();
     }
 
@@ -40,5 +40,11 @@ export class PetsListComponent implements OnInit, OnDestroy {
 
   onNewPet() {
     this.router.navigate(['new'], {relativeTo: this.route});
+  }
+
+  onDeletePet(id: number) {
+    this.animalService.deleteAnimal(id).subscribe(() => {
+      this.getPets();
+    });
   }
 }

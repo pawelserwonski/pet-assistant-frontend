@@ -14,4 +14,8 @@ export class WalkService {
   public createWalk(walk: Walk): Observable<Walk> {
     return this.httpClient.post<Walk>(walkControllerUrl, walk);
   }
+
+  public deleteWalk(id: number) {
+    return this.httpClient.delete(walkControllerUrl + `/${id}`);
+  }
 }

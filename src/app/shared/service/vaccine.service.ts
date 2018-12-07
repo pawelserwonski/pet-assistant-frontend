@@ -15,4 +15,8 @@ export class VaccineService {
   public createVaccine(vaccine: Vaccine): Observable<Vaccine> {
     return this.httpClient.post<Vaccine>(vaccineControlllerUrl, vaccine);
   }
+
+  public deleteVaccine(id: number) {
+    return this.httpClient.delete(vaccineControlllerUrl + `/${id}`);
+  }
 }

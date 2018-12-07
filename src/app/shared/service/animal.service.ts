@@ -23,4 +23,8 @@ export class AnimalService {
   public getAnimal(id: number): Observable<Animal> {
     return this.httpClient.get<Animal>(animalControllerUrl + `/${id}`);
   }
+
+  public deleteAnimal(id: number) {
+    return this.httpClient.delete(animalControllerUrl + `/${id}`);
+  }
 }

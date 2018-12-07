@@ -13,4 +13,8 @@ export class VetVisitService {
   public createVetVisit(vetVisit: VetVisit): Observable<VetVisit> {
     return this.httpClient.post<VetVisit>(vetVisitControllerUrl, vetVisit);
   }
+
+  public deleteVetVisit(id: number) {
+    return this.httpClient.delete(vetVisitControllerUrl + `/${id}`);
+  }
 }

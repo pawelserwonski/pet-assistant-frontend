@@ -19,8 +19,6 @@ export class LoginComponent implements OnInit {
       'email': new FormControl('', Validators.required),
       'password': new FormControl('', Validators.required)
     });
-
-    this.authService.logout();
   }
 
   onSubmit() {

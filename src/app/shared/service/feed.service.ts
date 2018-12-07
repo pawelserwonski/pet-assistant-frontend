@@ -14,4 +14,8 @@ export class FeedService {
   public createFeed(feed: Feed): Observable<Feed> {
     return this.httpClient.post<Feed>(feedControllerUrl, feed);
   }
+
+  public deleteFeed(id: number) {
+    return this.httpClient.delete(feedControllerUrl + `/${id}`);
+  }
 }

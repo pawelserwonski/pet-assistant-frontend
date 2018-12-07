@@ -6,6 +6,10 @@ import {DomSanitizer} from '@angular/platform-browser';
 import {Subscription} from 'rxjs';
 import {Vaccine} from '../../shared/model/vaccine.model';
 import {VetVisit} from '../../shared/model/vet-visit.model';
+import {FeedService} from '../../shared/service/feed.service';
+import {WalkService} from '../../shared/service/walk.service';
+import {VaccineService} from '../../shared/service/vaccine.service';
+import {VetVisitService} from '../../shared/service/vet-visit.service';
 
 @Component({
   selector: 'app-pets-details',
@@ -23,15 +27,17 @@ export class PetsDetailsComponent implements OnInit, OnDestroy {
   constructor(private animalService: AnimalService,
               private route: ActivatedRoute,
               private router: Router,
-              public domSanitizer: DomSanitizer) {
+              public domSanitizer: DomSanitizer,
+              private feedService: FeedService,
+              private walkService: WalkService,
+              private vaccineService: VaccineService,
+              private vetVisitService: VetVisitService) {
   }
 
   ngOnInit() {
     this.routeSubscription = this.route.params.subscribe((params: Params) => {
       this.petId = +params['id'];
-      this.serviceSubscription = this.animalService.getAnimal(this.petId).subscribe((animal: Animal) => {
-        this.pet = animal;
-      });
+      this.getAnimalDetails();
     });
   }
 
@@ -40,9 +46,19 @@ export class PetsDetailsComponent implements OnInit, OnDestroy {
     this.routeSubscription.unsubscribe();
   }
 
+  private getAnimalDetails() {
+    if (this.serviceSubscription) {
+      this.serviceSubscription.unsubscribe();
+    }
+    this.serviceSubscription = this.animalService.getAnimal(this.petId).subscribe((animal: Animal) => {
+      this.pet = animal;
+    });
+  }
+
   get selectedVetVisit(): VetVisit {
     return this._selectedVetVisit;
   }
+
   set selectedVetVisit(value: VetVisit) {
     this._selectedVetVisit = value;
   }
@@ -61,5 +77,29 @@ export class PetsDetailsComponent implements OnInit, OnDestroy {
 
   onNewVetVisit() {
     this.router.navigate(['vetvisit'], {relativeTo: this.route});
+  }
+
+  onDeleteFeed(id: number) {
+    this.feedService.deleteFeed(id).subscribe(() => {
+      this.getAnimalDetails();
+    });
+  }
+
+  onDeleteWalk(id: number) {
+    this.walkService.deleteWalk(id).subscribe(() => {
+      this.getAnimalDetails();
+    });
+  }
+
+  onDeleteVaccine(id: number) {
+    this.vaccineService.deleteVaccine(id).subscribe(() => {
+      this.getAnimalDetails();
+    });
+  }
+
+  onDeleteVetVisit(id: number) {
+    this.vetVisitService.deleteVetVisit(id).subscribe(() => {
+      this.getAnimalDetails();
+    });
   }
 }

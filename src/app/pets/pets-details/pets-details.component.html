@@ -1,13 +1,13 @@
 <div class="row" id="basicInfo">
   <div class="col-md-6">
-    <p>{{pet.name}}</p>
-    <p>{{pet.birthDate | date:'mediumDate'}}</p>
-    <p>{{pet.breed}}</p>
-    <p>{{pet.species}}</p>
+    <p>{{pet?.name}}</p>
+    <p>{{pet?.birthDate | date:'mediumDate'}}</p>
+    <p>{{pet?.breed}}</p>
+    <p>{{pet?.species}}</p>
   </div>
   <div class="col-md-6">
     <img
-      [src]="domSanitizer.bypassSecurityTrustUrl('data:image/*;base64,' + pet.photo)"
+      [src]="domSanitizer.bypassSecurityTrustUrl('data:image/*;base64,' + pet?.photo)"
       class="img-responsive"
       style="max-height: 400px;"
     >
@@ -16,10 +16,11 @@
 <hr>
 <div class="row list-group" id="feedsList">
   <h2>Feeds:
-    <button class="btn btn-success pull-right" (click)="onNewFeed()">Add Feed</button>
+    <button class="btn btn-success pull-right" (click)="onNewFeed()"><i class="fas fa-plus"></i> Add Feed</button>
   </h2>
-  <div *ngFor="let feed of pet.feeds"
+  <div *ngFor="let feed of pet?.feeds"
        class="col-md-4 list-group-item">
+    <button class="btn btn-danger btn-xs pull-right" (click)="onDeleteFeed(feed.id)"><i class="far fa-trash-alt"></i></button>
     <h3 class="list-group-item-heading">{{feed.time}}</h3>
     <p class="list-group-item-text">{{feed.fodderType}}</p>
     <p
@@ -29,10 +30,11 @@
 <hr>
 <div class="row list-group" id="walksList">
   <h2>Walks:
-    <button class="btn btn-success pull-right" (click)="onNewWalk()">Add Walk</button>
+    <button class="btn btn-success pull-right" (click)="onNewWalk()"><i class="fas fa-plus"></i> Add Walk</button>
   </h2>
-  <div *ngFor="let walk of pet.walks"
+  <div *ngFor="let walk of pet?.walks"
        class="col-md-4 list-group-item">
+    <button class="btn btn-danger btn-xs pull-right" (click)="onDeleteWalk(walk.id)"><i class="far fa-trash-alt"></i></button>
     <h3 class="list-group-item-heading">{{walk.startTime}}</h3>
     <p
       class="list-group-item-text">{{walk.walkLength}} {{walk.walkLength > 1 ? walk.walkLengthUnit + 's' : walk.walkLengthUnit}}</p>
@@ -42,10 +44,11 @@
 <hr>
 <div class="row list-group" id="vaccinesList">
   <h2>Vaccines:
-    <button class="btn btn-success pull-right" (click)="onNewVaccine()">Add Vaccine</button>
+    <button class="btn btn-success pull-right" (click)="onNewVaccine()"><i class="fas fa-plus"></i> Add Vaccine</button>
   </h2>
-  <div *ngFor="let vaccine of pet.vaccines"
+  <div *ngFor="let vaccine of pet?.vaccines"
        class="col-md-4 list-group-item">
+    <button class="btn btn-danger btn-xs pull-right" (click)="onDeleteVaccine(vaccine.id)"><i class="far fa-trash-alt"></i></button>
     <h3 class="list-group-item-heading">{{vaccine.sicknessType}}</h3>
     <p class="list-group-item-text">{{vaccine.visitDate | date:'d MMMM y, H:mm'}}</p>
     <p class="list-group-item-text">{{vaccine.location}}</p>
@@ -54,20 +57,21 @@
 <hr>
 <div class="row list-group" id="vetVisitsList">
   <h2>Vet visits:
-    <button class="btn btn-success pull-right" (click)="onNewVetVisit()">Add Vet Visit</button>
+    <button class="btn btn-success pull-right" (click)="onNewVetVisit()"><i class="fas fa-plus"></i> Add Vet Visit</button>
   </h2>
   <div class="col-md-6">
     <a class="col-md-12 list-group-item" style="cursor: pointer;"
-       *ngFor="let visit of pet.vetVisitsHistory"
+       *ngFor="let visit of pet?.vetVisitsHistory"
        (click)="_selectedVetVisit = visit">
+      <button class="btn btn-danger btn-xs pull-right" (click)="onDeleteVetVisit(visit.id)"><i class="far fa-trash-alt"></i></button>
       <h3 class="list-group-item-heading">{{visit.visitDate | date:'d MMMM y, H:mm'}}</h3>
       <p class="list-group-item-text">{{visit.location}}</p>
     </a>
   </div>
   <div class="col-md-offset-7" [ngStyle]="{visibility: selectedVetVisit != null ? 'visible' : 'hidden'}">
     <label for="visitReason">Reason:</label>
-    <p id="visitReason">{{selectedVetVisit.reason}}</p>
+    <p id="visitReason">{{selectedVetVisit?.reason}}</p>
     <label for="visitOpinion">Vet opinion:</label>
-    <p id="visitOpinion">{{selectedVetVisit.vetOpinion}}</p>
+    <p id="visitOpinion">{{selectedVetVisit?.vetOpinion}}</p>
   </div>
 </div>
