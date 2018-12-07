@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  apiEndpoint: '//localhost:8080'
+  apiEndpoint: '//pet-assistant.herokuapp.com'
 };
 
 /*
