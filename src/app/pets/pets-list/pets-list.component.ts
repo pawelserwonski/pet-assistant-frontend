@@ -46,6 +46,6 @@ export class PetsListComponent implements OnInit, OnDestroy {
   }
 
   onEditPet(id: number) {
-    this.router.navigate(['pets', 'edit', id]);
+    this.router.navigate(['pets', id, 'edit']);
   }
 }

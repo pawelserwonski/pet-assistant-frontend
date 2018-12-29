@@ -4,7 +4,6 @@ import {AnimalService} from '../../shared/service/animal.service';
 import {ActivatedRoute, Params, Router} from '@angular/router';
 import {DomSanitizer} from '@angular/platform-browser';
 import {Subscription} from 'rxjs';
-import {Vaccine} from '../../shared/model/vaccine.model';
 import {VetVisit} from '../../shared/model/vet-visit.model';
 import {FeedService} from '../../shared/service/feed.service';
 import {WalkService} from '../../shared/service/walk.service';
@@ -101,5 +100,9 @@ export class PetsDetailsComponent implements OnInit, OnDestroy {
     this.vetVisitService.deleteVetVisit(id).subscribe(() => {
       this.getAnimalDetails();
     });
+  }
+
+  onEditVisit(id: number) {
+    this.router.navigate(['vetvisit', 'edit', id], {relativeTo: this.route});
   }
 }

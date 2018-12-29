@@ -60,13 +60,7 @@ export class NewPetComponent implements OnInit {
   }
 
   private async initForm() {
-    this.petForm = new FormGroup({
-      'name': new FormControl(this.name, Validators.required),
-      'birthDate': new FormControl(this.birthDate, Validators.required),
-      'breed': new FormControl(this.breed, Validators.required),
-      'species': new FormControl(this.species, Validators.required),
-      'photo': new FormControl()
-    });
+    this.createFormGroup();
     if (this.editMode) {
       const animal = await this.animalService.getAnimal(this.animalId).toPromise();
       this.name = animal.name;
@@ -75,13 +69,17 @@ export class NewPetComponent implements OnInit {
       this.species = animal.species;
       this.photo = animal.photo;
 
-      this.petForm = new FormGroup({
-        'name': new FormControl(this.name, Validators.required),
-        'birthDate': new FormControl(this.birthDate, Validators.required),
-        'breed': new FormControl(this.breed, Validators.required),
-        'species': new FormControl(this.species, Validators.required),
-        'photo': new FormControl()
-      });
+      this.createFormGroup();
     }
+  }
+
+  private createFormGroup() {
+    this.petForm = new FormGroup({
+      'name': new FormControl(this.name, Validators.required),
+      'birthDate': new FormControl(this.birthDate, Validators.required),
+      'breed': new FormControl(this.breed, Validators.required),
+      'species': new FormControl(this.species, Validators.required),
+      'photo': new FormControl()
+    });
   }
 }

@@ -8,7 +8,8 @@ const vetVisitControllerUrl = environment.apiEndpoint + '/vet';
 
 @Injectable()
 export class VetVisitService {
-  constructor(private httpClient: HttpClient) {}
+  constructor(private httpClient: HttpClient) {
+  }
 
   public createVetVisit(vetVisit: VetVisit): Observable<VetVisit> {
     return this.httpClient.post<VetVisit>(vetVisitControllerUrl, vetVisit);
@@ -16,5 +17,13 @@ export class VetVisitService {
 
   public deleteVetVisit(id: number) {
     return this.httpClient.delete(vetVisitControllerUrl + `/${id}`);
+  }
+
+  public getVetVisit(id: number): Observable<VetVisit> {
+    return this.httpClient.get<VetVisit>(vetVisitControllerUrl + `/${id}`);
+  }
+
+  public updateVetVisit(vetVisit: VetVisit, id: number) {
+    return this.httpClient.put(vetVisitControllerUrl + `/${id}`, vetVisit);
   }
 }
