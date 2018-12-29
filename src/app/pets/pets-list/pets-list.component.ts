@@ -41,6 +41,11 @@ export class PetsListComponent implements OnInit, OnDestroy {
   onDeletePet(id: number) {
     this.animalService.deleteAnimal(id).subscribe(() => {
       this.getPets();
+      this.router.navigate(['./'], {relativeTo: this.route});
     });
+  }
+
+  onEditPet(id: number) {
+    this.router.navigate(['pets', 'edit', id]);
   }
 }

@@ -27,4 +27,8 @@ export class AnimalService {
   public deleteAnimal(id: number) {
     return this.httpClient.delete(animalControllerUrl + `/${id}`);
   }
+
+  public updateAnimal(animal: Animal, animalId: number) {
+    return this.httpClient.put<Animal>(animalControllerUrl + `/${animalId}`, animal);
+  }
 }

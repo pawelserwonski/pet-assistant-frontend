@@ -1,13 +1,12 @@
 <div class="row list-group">
-  <div class="col-xs-12">
-    <a *ngFor="let pet of pets"
+  <div class="col-xs-12" *ngFor="let pet of pets">
+    <a
       [routerLink]="[pet.id]"
        routerLinkActive="active"
        class="list-group-item clearfix">
       <div class="pull-left">
         <h4 class="list-group-item-heading">{{pet.name}}</h4>
         <p class="list-group-item-text">{{pet.breed}}</p>
-        <button class="btn btn-danger btn-xs" (click)="onDeletePet(pet.id)"><i class="far fa-trash-alt"></i></button>
       </div>
       <div class="pull-right">
         <img
@@ -17,5 +16,7 @@
         >
       </div>
     </a>
+    <button class="btn btn-warning btn-xs" (click)="onEditPet(pet.id)"><i class="far fa-trash-alt"></i></button>
+    <button class="btn btn-danger btn-xs" (click)="onDeletePet(pet.id)"><i class="far fa-trash-alt"></i></button>
   </div>
 </div>

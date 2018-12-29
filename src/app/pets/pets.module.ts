@@ -16,6 +16,7 @@ const petsRoutes: Routes = [
   {
     path: '', component: PetsComponent, canActivate: [AuthGuard], children: [
       {path: 'new', component: NewPetComponent, canActivate: [AuthGuard]},
+      {path: 'edit/:id', component: NewPetComponent, canActivate: [AuthGuard]},
       {path: ':id', component: PetsDetailsComponent, canActivate: [AuthGuard]},
       {path: ':id/feed', component: NewFeedComponent, canActivate: [AuthGuard]},
       {path: ':id/walk', component: NewWalkComponent, canActivate: [AuthGuard]},

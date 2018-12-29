@@ -1,8 +1,7 @@
 import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
-import {ActivatedRoute, Router} from '@angular/router';
+import {ActivatedRoute, Params, Router} from '@angular/router';
 import {AnimalService} from '../../shared/service/animal.service';
-import {PetsListComponent} from '../pets-list/pets-list.component';
 
 @Component({
   selector: 'app-new-pet',
@@ -10,6 +9,14 @@ import {PetsListComponent} from '../pets-list/pets-list.component';
   styleUrls: ['./new-pet.component.css']
 })
 export class NewPetComponent implements OnInit {
+  animalId: number;
+  editMode = false;
+
+  name = '';
+  birthDate = new Date();
+  breed = '';
+  species = '';
+  photo: string;
   petForm: FormGroup;
   @ViewChild('fileInput') fileInput: ElementRef;
 
@@ -19,20 +26,25 @@ export class NewPetComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.petForm = new FormGroup({
-      'name': new FormControl('', Validators.required),
-      'birthDate': new FormControl('', Validators.required),
-      'breed': new FormControl('', Validators.required),
-      'species': new FormControl('', Validators.required),
-      'photo': new FormControl()
-    });
+    this.route.params.subscribe(
+      (params: Params) => {
+        this.animalId = +params['id'];
+        this.editMode = params['id'] != null;
+        this.initForm();
+      }
+    );
   }
 
   onSubmit() {
     console.log(this.petForm.value);
-    this.animalService.createAnimal(this.petForm.value).subscribe(value => {
-      this.router.navigate(['../', value.id], {relativeTo: this.route});
-    });
+    this.petForm.get('photo').setValue(this.photo);
+    this.editMode
+      ? this.animalService.updateAnimal(this.petForm.value, this.animalId).subscribe(value => {
+        this.router.navigate(['../../', value.id], {relativeTo: this.route});
+      })
+      : this.animalService.createAnimal(this.petForm.value).subscribe(value => {
+        this.router.navigate(['../', value.id], {relativeTo: this.route});
+      });
   }
 
   onFileChange(event) {
@@ -42,8 +54,34 @@ export class NewPetComponent implements OnInit {
       reader.readAsDataURL(file);
       console.log(reader);
       reader.onload = () => {
-        this.petForm.get('photo').setValue(reader.result.split(',')[1]); // splits after comma to remove data:image...
+        this.photo = reader.result.split(',')[1]; // splits after comma to remove data:image...
       };
+    }
+  }
+
+  private async initForm() {
+    this.petForm = new FormGroup({
+      'name': new FormControl(this.name, Validators.required),
+      'birthDate': new FormControl(this.birthDate, Validators.required),
+      'breed': new FormControl(this.breed, Validators.required),
+      'species': new FormControl(this.species, Validators.required),
+      'photo': new FormControl()
+    });
+    if (this.editMode) {
+      const animal = await this.animalService.getAnimal(this.animalId).toPromise();
+      this.name = animal.name;
+      this.breed = animal.breed;
+      this.birthDate = animal.birthDate;
+      this.species = animal.species;
+      this.photo = animal.photo;
+
+      this.petForm = new FormGroup({
+        'name': new FormControl(this.name, Validators.required),
+        'birthDate': new FormControl(this.birthDate, Validators.required),
+        'breed': new FormControl(this.breed, Validators.required),
+        'species': new FormControl(this.species, Validators.required),
+        'photo': new FormControl()
+      });
     }
   }
 }
