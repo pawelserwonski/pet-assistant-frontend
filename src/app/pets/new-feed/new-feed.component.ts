@@ -12,20 +12,23 @@ import {FodderUnit} from '../../shared/enum/fodder-unit.enum';
 export class NewFeedComponent implements OnInit {
   feedForm: FormGroup;
   animalId: number;
+  feedId: number;
+  editMode: boolean;
+
+  fodderType = '';
+  portionSize: number;
+  portionSizeUnit = '';
+  time = new Date();
 
   constructor(private route: ActivatedRoute, private router: Router, private feedService: FeedService) {
   }
 
   ngOnInit() {
-    this.feedForm = new FormGroup({
-      'fedAnimal': new FormControl(),
-      'fodderType': new FormControl('', Validators.required),
-      'portionSize': new FormControl('', Validators.required),
-      'portionSizeUnit': new FormControl('', Validators.required),
-      'time': new FormControl('', Validators.required)
-    });
     this.route.params.subscribe(params => {
       this.animalId = +params['id'];
+      this.feedId = +params['feedId'];
+      this.editMode = params['feedId'] != null;
+      this.initForm();
     });
   }
 
@@ -35,10 +38,44 @@ export class NewFeedComponent implements OnInit {
   }
 
   onSubmit() {
-    this.feedForm.get('fedAnimal').setValue({id: this.animalId});
-    console.log(this.feedForm);
-    this.feedService.createFeed(this.feedForm.value).subscribe(value => {
-      this.router.navigate(['../'], {relativeTo: this.route});
+    if (this.editMode) {
+      this.feedService.updateFeed(this.feedForm.value, this.feedId).subscribe(value => {
+        this.router.navigate(['pets', this.animalId]);
+      });
+    } else {
+      this.feedForm.get('fedAnimal').setValue({id: this.animalId});
+      console.log(this.feedForm);
+      this.feedService.createFeed(this.feedForm.value).subscribe(value => {
+        this.router.navigate(['../'], {relativeTo: this.route});
+      });
+    }
+  }
+
+  private initForm() {
+    this.createFormGroup();
+
+    if (this.editMode) {
+      this.initEditForm();
+    }
+  }
+
+  private async initEditForm() {
+    const feed = await this.feedService.getFeed(this.feedId).toPromise();
+    this.fodderType = feed.fodderType;
+    this.portionSize = feed.portionSize;
+    this.portionSizeUnit = feed.portionSizeUnit;
+    this.time = feed.time;
+
+    this.createFormGroup();
+  }
+
+  private createFormGroup() {
+    this.feedForm = new FormGroup({
+      'fedAnimal': new FormControl(),
+      'fodderType': new FormControl(this.fodderType, Validators.required),
+      'portionSize': new FormControl(this.portionSize, Validators.required),
+      'portionSizeUnit': new FormControl(this.portionSizeUnit, Validators.required),
+      'time': new FormControl(this.time, Validators.required)
     });
   }
 }

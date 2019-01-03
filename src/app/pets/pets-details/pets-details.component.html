@@ -21,6 +21,7 @@
   <div *ngFor="let feed of pet?.feeds"
        class="col-md-4 list-group-item">
     <button class="btn btn-danger btn-xs pull-right" (click)="onDeleteFeed(feed.id)"><i class="far fa-trash-alt"></i></button>
+    <button class="btn btn-warning btn-xs pull-right" (click)="onEditFeed(feed.id)"><i class="far fa-trash-alt"></i></button>
     <h3 class="list-group-item-heading">{{feed.time}}</h3>
     <p class="list-group-item-text">{{feed.fodderType}}</p>
     <p
@@ -35,6 +36,7 @@
   <div *ngFor="let walk of pet?.walks"
        class="col-md-4 list-group-item">
     <button class="btn btn-danger btn-xs pull-right" (click)="onDeleteWalk(walk.id)"><i class="far fa-trash-alt"></i></button>
+    <button class="btn btn-warning btn-xs pull-right" (click)="onEditWalk(walk.id)"><i class="far fa-trash-alt"></i></button>
     <h3 class="list-group-item-heading">{{walk.startTime}}</h3>
     <p
       class="list-group-item-text">{{walk.walkLength}} {{walk.walkLength > 1 ? walk.walkLengthUnit + 's' : walk.walkLengthUnit}}</p>
@@ -49,6 +51,7 @@
   <div *ngFor="let vaccine of pet?.vaccines"
        class="col-md-4 list-group-item">
     <button class="btn btn-danger btn-xs pull-right" (click)="onDeleteVaccine(vaccine.id)"><i class="far fa-trash-alt"></i></button>
+    <button class="btn btn-warning btn-xs pull-right" (click)="onEditVaccine(vaccine.id)"><i class="far fa-trash-alt"></i></button>
     <h3 class="list-group-item-heading">{{vaccine.sicknessType}}</h3>
     <p class="list-group-item-text">{{vaccine.visitDate | date:'d MMMM y, H:mm'}}</p>
     <p class="list-group-item-text">{{vaccine.location}}</p>
@@ -63,10 +66,10 @@
     <a class="col-md-12 list-group-item" style="cursor: pointer;"
        (click)="_selectedVetVisit = visit">
       <button class="btn btn-danger btn-xs pull-right" (click)="onDeleteVetVisit(visit.id)"><i class="far fa-trash-alt"></i></button>
+      <button class="btn btn-warning btn-xs pull-right" (click)="onEditVisit(visit.id)"><i class="far fa-trash-alt"></i></button>
       <h3 class="list-group-item-heading">{{visit.visitDate | date:'d MMMM y, H:mm'}}</h3>
       <p class="list-group-item-text">{{visit.location}}</p>
     </a>
-    <button class="btn btn-warning btn-xs" (click)="onEditVisit(visit.id)"><i class="far fa-trash-alt"></i></button>
   </div>
   <div class="col-md-offset-7" [ngStyle]="{visibility: selectedVetVisit != null ? 'visible' : 'hidden'}">
     <label for="visitReason">Reason:</label>

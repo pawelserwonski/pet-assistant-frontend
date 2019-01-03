@@ -18,4 +18,12 @@ export class WalkService {
   public deleteWalk(id: number) {
     return this.httpClient.delete(walkControllerUrl + `/${id}`);
   }
+
+  public getWalk(id: number): Observable<Walk> {
+    return this.httpClient.get<Walk>(walkControllerUrl + `/${id}`);
+  }
+
+  public updateWalk(walk: Walk, id: number) {
+    return this.httpClient.put(walkControllerUrl + `/${id}`, walk);
+  }
 }

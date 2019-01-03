@@ -11,6 +11,12 @@ import {VaccineService} from '../../shared/service/vaccine.service';
 export class NewVaccineComponent implements OnInit {
   vaccineForm: FormGroup;
   animalId: number;
+  vaccineId: number;
+  editMode: boolean;
+
+  visitDate = new Date;
+  sicknessType = '';
+  location = '';
 
   constructor(private route: ActivatedRoute, private router: Router, private vaccineService: VaccineService) {
   }
@@ -18,19 +24,49 @@ export class NewVaccineComponent implements OnInit {
   ngOnInit() {
     this.route.params.subscribe(params => {
       this.animalId = +params['id'];
+      this.vaccineId = +params['vaccineId'];
+      this.editMode = params['vaccineId'] != null;
+      this.initForm();
     });
-    this.vaccineForm = new FormGroup({
-      'vaccinatedAnimal': new FormControl(),
-      'visitDate': new FormControl('', Validators.required),
-      'sicknessType': new FormControl('', Validators.required),
-      'location': new FormControl('', Validators.required)
-    });
+
   }
 
   onSubmit() {
-    this.vaccineForm.get('vaccinatedAnimal').setValue({id: this.animalId});
-    this.vaccineService.createVaccine(this.vaccineForm.value).subscribe(value => {
-      this.router.navigate(['../'], {relativeTo: this.route});
+    if (this.editMode) {
+      this.vaccineService.updateVaccine(this.vaccineForm.value, this.vaccineId).subscribe(value => {
+        this.router.navigate(['pets', this.animalId]);
+      });
+    } else {
+      this.vaccineForm.get('vaccinatedAnimal').setValue({id: this.animalId});
+      this.vaccineService.createVaccine(this.vaccineForm.value).subscribe(value => {
+        this.router.navigate(['../'], {relativeTo: this.route});
+      });
+    }
+  }
+
+  private initForm() {
+    this.createFormGroup();
+
+    if (this.editMode) {
+      this.initEditForm();
+    }
+  }
+
+  private async initEditForm() {
+    const vaccine = await this.vaccineService.getVaccine(this.vaccineId).toPromise();
+    this.visitDate = vaccine.visitDate;
+    this.sicknessType = vaccine.sicknessType;
+    this.location = vaccine.location;
+
+    this.createFormGroup();
+  }
+
+  private createFormGroup() {
+    this.vaccineForm = new FormGroup({
+      'vaccinatedAnimal': new FormControl(),
+      'visitDate': new FormControl(this.visitDate, Validators.required),
+      'sicknessType': new FormControl(this.sicknessType, Validators.required),
+      'location': new FormControl(this.location, Validators.required)
     });
   }
 }
