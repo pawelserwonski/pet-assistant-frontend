@@ -2,7 +2,7 @@ import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
 
 import {AppComponent} from './app.component';
-import {RouterModule, Routes, PreloadAllModules} from '@angular/router';
+import {PreloadAllModules, RouterModule, Routes} from '@angular/router';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {AnimalService} from './shared/service/animal.service';
 import {CommonModule} from '@angular/common';
@@ -21,12 +21,15 @@ import {ReactiveFormsModule} from '@angular/forms';
 import {TokenStorage} from './auth/token-storage';
 import {AuthInterceptor} from './auth/auth.interceptor';
 import {AuthService} from './auth/auth.service';
+import {NotFoundComponent} from './not-found/not-found.component';
 
 const rootRoutes: Routes = [
   {path: '', component: HomeComponent, canActivate: [LoggedOffGuard]},
   {path: 'login', component: LoginComponent, canActivate: [LoggedOffGuard]},
   {path: 'register', component: RegisterComponent, canActivate: [LoggedOffGuard]},
-  {path: 'pets', loadChildren: './pets/pets.module#PetsModule', canActivate: [AuthGuard]}
+  {path: 'pets', loadChildren: './pets/pets.module#PetsModule', canActivate: [AuthGuard]},
+  {path: 'not-found', component: NotFoundComponent},
+  {path: '**', redirectTo: '/not-found'}
 ];
 
 @NgModule({
@@ -35,7 +38,8 @@ const rootRoutes: Routes = [
     HeaderComponent,
     HomeComponent,
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
+    NotFoundComponent
   ],
   imports: [
     BrowserModule,

@@ -1,15 +1,15 @@
 <div class="row" id="basicInfo">
-  <div class="col-md-6">
-    <p>{{pet?.name}}</p>
-    <p>{{pet?.birthDate | date:'mediumDate'}}</p>
-    <p>{{pet?.breed}}</p>
-    <p>{{pet?.species}}</p>
+  <div class="col-sm-6">
+    <p title="Name">{{pet?.name}}</p>
+    <p title="Birth Date">{{pet?.birthDate | date:'mediumDate'}}</p>
+    <p title="Breed">{{pet?.breed}}</p>
+    <p title="Species">{{pet?.species}}</p>
   </div>
-  <div class="col-md-6">
+  <div class="col-sm-6">
     <img
       [src]="domSanitizer.bypassSecurityTrustUrl('data:image/*;base64,' + pet?.photo)"
       class="img-responsive"
-      style="max-height: 400px;"
+      style="max-height: 300px;"
     >
   </div>
 </div>
@@ -21,7 +21,7 @@
   <div *ngFor="let feed of pet?.feeds"
        class="col-md-4 list-group-item">
     <button class="btn btn-danger btn-xs pull-right" (click)="onDeleteFeed(feed.id)"><i class="far fa-trash-alt"></i></button>
-    <button class="btn btn-warning btn-xs pull-right" (click)="onEditFeed(feed.id)"><i class="far fa-trash-alt"></i></button>
+    <button class="btn btn-warning btn-xs pull-right" (click)="onEditFeed(feed.id)"><i class="fas fa-edit"></i></button>
     <h3 class="list-group-item-heading">{{feed.time}}</h3>
     <p class="list-group-item-text">{{feed.fodderType}}</p>
     <p
@@ -36,7 +36,7 @@
   <div *ngFor="let walk of pet?.walks"
        class="col-md-4 list-group-item">
     <button class="btn btn-danger btn-xs pull-right" (click)="onDeleteWalk(walk.id)"><i class="far fa-trash-alt"></i></button>
-    <button class="btn btn-warning btn-xs pull-right" (click)="onEditWalk(walk.id)"><i class="far fa-trash-alt"></i></button>
+    <button class="btn btn-warning btn-xs pull-right" (click)="onEditWalk(walk.id)"><i class="fas fa-edit"></i></button>
     <h3 class="list-group-item-heading">{{walk.startTime}}</h3>
     <p
       class="list-group-item-text">{{walk.walkLength}} {{walk.walkLength > 1 ? walk.walkLengthUnit + 's' : walk.walkLengthUnit}}</p>
@@ -51,7 +51,7 @@
   <div *ngFor="let vaccine of pet?.vaccines"
        class="col-md-4 list-group-item">
     <button class="btn btn-danger btn-xs pull-right" (click)="onDeleteVaccine(vaccine.id)"><i class="far fa-trash-alt"></i></button>
-    <button class="btn btn-warning btn-xs pull-right" (click)="onEditVaccine(vaccine.id)"><i class="far fa-trash-alt"></i></button>
+    <button class="btn btn-warning btn-xs pull-right" (click)="onEditVaccine(vaccine.id)"><i class="fas fa-edit"></i></button>
     <h3 class="list-group-item-heading">{{vaccine.sicknessType}}</h3>
     <p class="list-group-item-text">{{vaccine.visitDate | date:'d MMMM y, H:mm'}}</p>
     <p class="list-group-item-text">{{vaccine.location}}</p>
@@ -66,7 +66,7 @@
     <a class="col-md-12 list-group-item" style="cursor: pointer;"
        (click)="_selectedVetVisit = visit">
       <button class="btn btn-danger btn-xs pull-right" (click)="onDeleteVetVisit(visit.id)"><i class="far fa-trash-alt"></i></button>
-      <button class="btn btn-warning btn-xs pull-right" (click)="onEditVisit(visit.id)"><i class="far fa-trash-alt"></i></button>
+      <button class="btn btn-warning btn-xs pull-right" (click)="onEditVisit(visit.id)"><i class="fas fa-edit"></i></button>
       <h3 class="list-group-item-heading">{{visit.visitDate | date:'d MMMM y, H:mm'}}</h3>
       <p class="list-group-item-text">{{visit.location}}</p>
     </a>

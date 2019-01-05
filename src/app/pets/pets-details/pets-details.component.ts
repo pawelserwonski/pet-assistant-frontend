@@ -46,11 +46,14 @@ export class PetsDetailsComponent implements OnInit, OnDestroy {
   }
 
   private getAnimalDetails() {
+    this._selectedVetVisit = null;
     if (this.serviceSubscription) {
       this.serviceSubscription.unsubscribe();
     }
     this.serviceSubscription = this.animalService.getAnimal(this.petId).subscribe((animal: Animal) => {
       this.pet = animal;
+    }, error => {
+      this.router.navigate(['not-found']);
     });
   }
 

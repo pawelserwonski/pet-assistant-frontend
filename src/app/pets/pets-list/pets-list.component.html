@@ -3,7 +3,7 @@
     <a
       [routerLink]="[pet.id]"
        routerLinkActive="active"
-       class="list-group-item clearfix">
+       class="list-group-item clearfix col-xs-12">
       <div class="pull-left">
         <h4 class="list-group-item-heading">{{pet.name}}</h4>
         <p class="list-group-item-text">{{pet.breed}}</p>
@@ -16,7 +16,7 @@
         >
       </div>
     </a>
-    <button class="btn btn-warning btn-xs" (click)="onEditPet(pet.id)"><i class="far fa-trash-alt"></i></button>
-    <button class="btn btn-danger btn-xs" (click)="onDeletePet(pet.id)"><i class="far fa-trash-alt"></i></button>
+    <button class="btn btn-warning col-xs-6 pull-left" (click)="onEditPet(pet.id)"><i class="fas fa-edit"></i></button>
+    <button class="btn btn-danger col-xs-6 pull-right" (click)="onDeletePet(pet.id)"><i class="far fa-trash-alt"></i></button>
   </div>
 </div>

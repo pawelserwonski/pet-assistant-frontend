@@ -6,7 +6,8 @@
 
     <div class="collapse navbar-collapse">
       <ul class="nav navbar-nav">
-        <li routerLinkActive="active" *ngIf="authService.isUserLogged()"><a routerLink="/pets/new"><i class="fas fa-plus"></i> Add Pet</a></li>
+        <li routerLinkActive="active" *ngIf="authService.isUserLogged()"><a routerLink="/pets/new"><i
+          class="fas fa-plus"></i> Add Pet</a></li>
       </ul>
 
       <ul class="nav navbar-nav navbar-right">
@@ -15,12 +16,15 @@
           <li><a routerLink="/login">Login <i class="fas fa-user"></i></a></li>
         </ng-template>
 
-        <li *ngIf="authService.isUserLogged()"><a
-          style="cursor: pointer;"
-          (click)="onLogout()">
-          Logout <i class="fas fa-sign-out-alt"></i>
-        </a>
-        </li>
+        <ng-template [ngIf]="authService.isUserLogged()">
+          <li><div class="navbar-text userName">{{authService.getUser().firstName}} {{authService.getUser().lastName}}</div></li>
+          <li><a
+              style="cursor: pointer;"
+              (click)="onLogout()">
+              Logout <i class="fas fa-sign-out-alt"></i>
+            </a>
+          </li>
+        </ng-template>
       </ul>
     </div>
   </div>
