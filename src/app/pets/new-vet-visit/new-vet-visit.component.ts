@@ -70,7 +70,7 @@ export class NewVetVisitComponent implements OnInit {
       'visitDate': new FormControl(this.visitDate, Validators.required),
       'reason': new FormControl(this.reason, Validators.required),
       'location': new FormControl(this.location, Validators.required),
-      'vetOpinion': new FormControl(this.vetOpinion, Validators.required)
+      'vetOpinion': new FormControl(this.vetOpinion)
     });
   }
 }
