@@ -6,6 +6,9 @@
 
 .btn {
   border-radius: 0px;
+}
 
+.incorrectForm {
+  border: 1px solid red;
 }
 
