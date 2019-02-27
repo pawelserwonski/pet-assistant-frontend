@@ -20,6 +20,9 @@ export class PetsListComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.getPets();
+    this.animalService.animalsCollectionChanged.subscribe(() => {
+      this.getPets();
+    });
   }
 
   ngOnDestroy(): void {

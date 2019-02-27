@@ -1,13 +1,15 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Animal} from '../model/animal.model';
-import {Observable} from 'rxjs';
+import {Observable, Subject} from 'rxjs';
 import {environment} from '../../../environments/environment';
 
 const animalControllerUrl = environment.apiEndpoint + '/animal';
 
 @Injectable()
 export class AnimalService {
+  animalsCollectionChanged = new Subject<null>();
+
   constructor(private httpClient: HttpClient) {
   }
 

@@ -40,9 +40,11 @@ export class NewPetComponent implements OnInit {
     this.petForm.get('photo').setValue(this.photo);
     this.editMode
       ? this.animalService.updateAnimal(this.petForm.value, this.animalId).subscribe(value => {
+        this.animalService.animalsCollectionChanged.next();
         this.router.navigate(['../../', value.id], {relativeTo: this.route});
       })
       : this.animalService.createAnimal(this.petForm.value).subscribe(value => {
+        this.animalService.animalsCollectionChanged.next();
         this.router.navigate(['../', value.id], {relativeTo: this.route});
       });
   }
